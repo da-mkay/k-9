@@ -38,8 +38,8 @@ public class AccountSetupComposition extends K9Activity {
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreateUnlocked(Bundle savedInstanceState) {
+        super.onCreateUnlocked(savedInstanceState);
 
         String accountUuid = getIntent().getStringExtra(EXTRA_ACCOUNT);
         mAccount = Preferences.getPreferences(this).getAccount(accountUuid);

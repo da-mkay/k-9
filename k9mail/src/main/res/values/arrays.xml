@@ -754,4 +754,25 @@
         <item>NEVER</item>
         <item>WHEN_IN_LANDSCAPE</item>
     </string-array>
+
+    <string-array name="global_settings_privacy_master_password_timeout_entries">
+        <item >@string/global_settings_privacy_master_lock_timeout_entries_disabled</item>
+        <item >@string/global_settings_privacy_master_lock_timeout_entries_0</item>
+        <item >@string/global_settings_privacy_master_lock_timeout_entries_10</item>
+        <item >@string/global_settings_privacy_master_lock_timeout_entries_30</item>
+        <item >@string/global_settings_privacy_master_lock_timeout_entries_60</item>
+        <item >@string/global_settings_privacy_master_lock_timeout_entries_180</item>
+        <item >@string/global_settings_privacy_master_lock_timeout_entries_300</item>
+        <item >@string/global_settings_privacy_master_lock_timeout_entries_600</item>
+    </string-array>
+    <string-array name="global_settings_privacy_master_password_timeout_values" translatable="false">
+        <item>-1</item>
+        <item>0</item>
+        <item>10000</item>
+        <item>30000</item>
+        <item>60000</item>
+        <item>180000</item>
+        <item>300000</item>
+        <item>600000</item>
+    </string-array>
 </resources>

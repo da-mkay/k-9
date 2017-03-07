@@ -309,8 +309,8 @@ public class MessageCompose extends K9Activity implements OnClickListener,
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreateUnlocked(Bundle savedInstanceState) {
+        super.onCreateUnlocked(savedInstanceState);
 
         if (UpgradeDatabases.actionUpgradeDatabases(this, getIntent())) {
             finish();
@@ -532,8 +532,8 @@ public class MessageCompose extends K9Activity implements OnClickListener,
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyUnlocked() {
+        super.onDestroyUnlocked();
 
         if (recipientPresenter != null)
             recipientPresenter.onActivityDestroy();

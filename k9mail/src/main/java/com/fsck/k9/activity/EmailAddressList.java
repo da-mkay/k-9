@@ -18,8 +18,8 @@ public class EmailAddressList extends K9ListActivity implements OnItemClickListe
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreateUnlocked(Bundle savedInstanceState) {
+        super.onCreateUnlocked(savedInstanceState);
 
         setContentView(R.layout.email_address_list);
 

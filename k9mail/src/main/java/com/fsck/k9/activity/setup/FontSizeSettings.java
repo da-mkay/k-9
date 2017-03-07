@@ -68,8 +68,8 @@ public class FontSizeSettings extends K9PreferenceActivity {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreateUnlocked(Bundle savedInstanceState) {
+        super.onCreateUnlocked(savedInstanceState);
 
         FontSizes fontSizes = K9.getFontSizes();
         addPreferencesFromResource(R.xml.font_preferences);

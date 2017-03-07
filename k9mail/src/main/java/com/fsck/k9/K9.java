@@ -241,6 +241,10 @@ public class K9 extends Application {
     private static boolean mWrapFolderNames = false;
     private static boolean mHideUserAgent = false;
     private static boolean mHideTimeZone = false;
+    private static boolean mUseMasterLock = false;
+    private static String mMasterPassword = null;
+    private static long mMasterLockTimeout = 60000;
+    private static boolean mMasterLockSecure = true;
 
     private static SortType mSortType;
     private static Map<SortType, Boolean> mSortAscending = new HashMap<SortType, Boolean>();
@@ -464,6 +468,10 @@ public class K9 extends Application {
         editor.putBoolean("wrapFolderNames", mWrapFolderNames);
         editor.putBoolean("hideUserAgent", mHideUserAgent);
         editor.putBoolean("hideTimeZone", mHideTimeZone);
+        editor.putBoolean("useMasterLock", mUseMasterLock);
+        editor.putString("masterPassword", mMasterPassword);
+        editor.putLong("masterLockTimeout", mMasterLockTimeout);
+        editor.putBoolean("masterLockSecure", mMasterLockSecure);
 
         editor.putString("language", language);
         editor.putInt("theme", theme.ordinal());
@@ -682,6 +690,10 @@ public class K9 extends Application {
         mWrapFolderNames = storage.getBoolean("wrapFolderNames", false);
         mHideUserAgent = storage.getBoolean("hideUserAgent", false);
         mHideTimeZone = storage.getBoolean("hideTimeZone", false);
+        mUseMasterLock = storage.getBoolean("useMasterLock", false);
+        mMasterPassword = storage.getString("masterPassword", null);
+        mMasterLockTimeout = storage.getLong("masterLockTimeout", 60000);
+        mMasterLockSecure = storage.getBoolean("masterLockSecure", true);
 
         mConfirmDelete = storage.getBoolean("confirmDelete", false);
         mConfirmDiscardMessage = storage.getBoolean("confirmDiscardMessage", true);
@@ -1226,6 +1238,38 @@ public class K9 extends Application {
     }
     public static void setHideTimeZone(final boolean state) {
         mHideTimeZone = state;
+    }
+
+    public static boolean useMasterLock() {
+        return mUseMasterLock;
+    }
+
+    public static void setUseMasterLock(final boolean state) {
+        mUseMasterLock = state;
+    }
+
+    public static String getMasterPassword() {
+        return mMasterPassword;
+    }
+
+    public static void setMasterPassword(final String masterPassword) {
+        mMasterPassword = masterPassword;
+    }
+
+    public static long getMasterLockTimeout() {
+        return mMasterLockTimeout;
+    }
+
+    public static void setMasterLockTimeout(final long masterPasswordTimeout) {
+        mMasterLockTimeout = masterPasswordTimeout;
+    }
+
+    public static boolean secureMasterLock() {
+        return mMasterLockSecure;
+    }
+
+    public static void setSecureMasterLock(final boolean state) {
+        mMasterLockSecure = state;
     }
 
     public static String getAttachmentDefaultPath() {

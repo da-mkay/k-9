@@ -390,6 +390,36 @@
             android:key="privacy_hide_timezone"
             android:title="@string/global_settings_privacy_hide_timezone"/>
 
+        <PreferenceCategory
+            android:key="master_lock_preferences"
+            android:title="@string/master_lock_preferences">
+            <CheckBoxPreference
+                android:key="privacy_use_master_lock"
+                android:persistent="false"
+                android:title="@string/global_settings_privacy_use_master_lock" />
+
+            <com.fsck.k9.preferences.MasterPasswordPreference
+                android:dependency="privacy_use_master_lock"
+                android:key="privacy_master_password"
+                android:persistent="false"
+                android:title="@string/global_settings_privacy_master_password" />
+
+            <ListPreference
+                android:dependency="privacy_use_master_lock"
+                android:entries="@array/global_settings_privacy_master_password_timeout_entries"
+                android:entryValues="@array/global_settings_privacy_master_password_timeout_values"
+                android:key="privacy_master_lock_timeout"
+                android:persistent="false"
+                android:summary="@string/global_settings_privacy_master_lock_timeout_summary"
+                android:title="@string/global_settings_privacy_master_lock_timeout" />
+
+            <CheckBoxPreference
+                android:dependency="privacy_use_master_lock"
+                android:key="privacy_master_lock_secure"
+                android:persistent="false"
+                android:summary="@string/global_settings_privacy_master_lock_secure_summary"
+                android:title="@string/global_settings_privacy_master_lock_secure" />
+        </PreferenceCategory>
     </PreferenceScreen>
 
     <PreferenceScreen

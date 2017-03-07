@@ -6,14 +6,31 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 
 import com.fsck.k9.K9;
+import com.fsck.k9.activity.masterlock.LockedPreferenceActivity;
 
 
-public class K9PreferenceActivity extends PreferenceActivity {
+public class K9PreferenceActivity extends LockedPreferenceActivity {
     @Override
     public void onCreate(Bundle icicle) {
         K9ActivityCommon.setLanguage(this, K9.getK9Language());
         setTheme(K9.getK9ThemeResourceId());
         super.onCreate(icicle);
+    }
+
+    @Override
+    public void onCreateUnlocked(Bundle savedInstanceState) {
+    }
+
+    @Override
+    public void onStartUnlocked() {
+    }
+
+    @Override
+    public void onStopUnlocked() {
+    }
+
+    @Override
+    public void onDestroyUnlocked() {
     }
 
     /**

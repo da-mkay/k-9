@@ -101,8 +101,8 @@ public class UpgradeDatabases extends K9Activity {
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreateUnlocked(Bundle savedInstanceState) {
+        super.onCreateUnlocked(savedInstanceState);
 
         // If the databases have already been upgraded there's no point in displaying this activity.
         if (K9.areDatabasesUpToDate()) {

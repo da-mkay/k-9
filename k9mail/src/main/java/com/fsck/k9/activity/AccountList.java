@@ -34,8 +34,8 @@ public abstract class AccountList extends K9ListActivity implements OnItemClickL
     private FontSizes mFontSizes = K9.getFontSizes();
 
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    public void onCreateUnlocked(Bundle icicle) {
+        super.onCreateUnlocked(icicle);
 
         setResult(RESULT_CANCELED);
 

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/unlock"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.fsck.k9.activity.masterlock.UnlockActivity"
+    android:orientation="vertical"
+    android:paddingTop="70dip"
+    android:paddingRight="12dip"
+    android:paddingLeft="12dip">
+
+    <ImageView
+        android:src="@drawable/icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:contentDescription="@string/app_name" />
+
+    <TextView
+        android:text="@string/master_lock_locked_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/unlock_text"
+        android:layout_marginTop="12dip"
+        android:layout_marginBottom="12dip"
+        android:gravity="center" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/unlock_edit" />
+
+    <Button
+        android:text="@string/master_lock_button_unlock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/unlock_button"
+        android:onClick="onUnlockButtonClick" />
+</LinearLayout>

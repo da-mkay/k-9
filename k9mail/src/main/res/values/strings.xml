@@ -336,6 +336,37 @@ Please submit bug reports, contribute new features and ask questions at
 
     <string name="global_settings_privacy_hide_useragent">Remove K-9 User-Agent from mail headers</string>
     <string name="global_settings_privacy_hide_timezone">Use UTC as time zone in mail headers</string>
+
+    <string name="master_lock_preferences">Master Lock</string>
+    <string name="global_settings_privacy_use_master_lock">Use master lock</string>
+    <string name="global_settings_privacy_master_password">Set master password</string>
+    <string name="global_settings_privacy_master_lock_timeout">Master lock timeout</string>
+    <string name="global_settings_privacy_master_lock_timeout_summary">Lock app automatically after some time of inactivity</string>
+    <string name="global_settings_privacy_master_lock_secure">Secure app</string>
+    <string name="global_settings_privacy_master_lock_secure_summary">Hide contents from recents screen, disable screenshots etc.</string>
+    <string name="global_settings_privacy_master_lock_timeout_entries_disabled">Do not lock automatically</string>
+    <string name="global_settings_privacy_master_lock_timeout_entries_0">Lock immediately</string>
+    <string name="global_settings_privacy_master_lock_timeout_entries_10">10 seconds</string>
+    <string name="global_settings_privacy_master_lock_timeout_entries_30">30 seconds</string>
+    <string name="global_settings_privacy_master_lock_timeout_entries_60">1 minute</string>
+    <string name="global_settings_privacy_master_lock_timeout_entries_180">3 minutes</string>
+    <string name="global_settings_privacy_master_lock_timeout_entries_300">5 minutes</string>
+    <string name="global_settings_privacy_master_lock_timeout_entries_600">10 minutes</string>
+    <string name="master_lock_password_old">Old password</string>
+    <string name="master_lock_password_new">New password</string>
+    <string name="master_lock_password_repeat">Repeat new password</string>
+    <string name="master_lock_locked_hint">K-9 Mail is locked!</string>
+    <string name="master_lock_button_lock">Lock</string>
+    <string name="master_lock_button_unlock">Unlock</string>
+    <string name="master_lock_password_error_incorrect">Incorrect password!</string>
+    <string name="master_lock_password_error_empty">This field must not be empty!</string>
+    <string name="master_lock_password_error_mismatch">New passwords do not match!</string>
+    <string name="master_lock_password_not_set_title">Master lock password</string>
+    <string name="master_lock_password_not_set_text">K-9 Mail allows you to set a master password to protect the app from unauthorized access.\nIt is highly recommended to set a master password in the global privacy settings even if you don\'t want to use a master lock. Otherwise a person with physical access to your device can set the master password and lock you out forever.</string>
+    <string name="master_lock_toast_locked">K-9 Mail automatically locked!</string>
+    <string name="master_lock_notification_title">K-9 Mail is unlocked</string>
+    <string name="master_lock_notification_text">Touch to open app</string>
+
     <string name="global_settings_notification_hide_subject_title">Hide subject in notifications</string>
     <string name="global_settings_notification_hide_subject_never">Never</string>
     <string name="global_settings_notification_hide_subject_when_locked">When device is locked</string>

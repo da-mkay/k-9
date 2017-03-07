@@ -31,8 +31,8 @@ public class EditIdentity extends K9Activity {
     private EditText mReplyTo;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreateUnlocked(Bundle savedInstanceState) {
+        super.onCreateUnlocked(savedInstanceState);
 
         mIdentity = (Identity)getIntent().getSerializableExtra(EXTRA_IDENTITY);
         mIdentityIndex = getIntent().getIntExtra(EXTRA_IDENTITY_INDEX, -1);

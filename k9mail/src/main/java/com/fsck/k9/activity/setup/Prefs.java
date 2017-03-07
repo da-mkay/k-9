@@ -31,6 +31,7 @@ import com.fsck.k9.helper.FileBrowserHelper;
 import com.fsck.k9.helper.FileBrowserHelper.FileBrowserFailOverCallback;
 import com.fsck.k9.notification.NotificationController;
 import com.fsck.k9.preferences.CheckBoxListPreference;
+import com.fsck.k9.preferences.MasterPasswordPreference;
 import com.fsck.k9.preferences.Storage;
 import com.fsck.k9.preferences.StorageEditor;
 import com.fsck.k9.preferences.TimePickerPreference;
@@ -88,6 +89,11 @@ public class Prefs extends K9PreferenceActivity {
     private static final String PREFERENCE_HIDE_USERAGENT = "privacy_hide_useragent";
     private static final String PREFERENCE_HIDE_TIMEZONE = "privacy_hide_timezone";
 
+    private static final String PREFERENCE_USE_MASTER_LOCK = "privacy_use_master_lock";
+    private static final String PREFERENCE_MASTER_PASSWORD = "privacy_master_password";
+    private static final String PREFERENCE_MASTER_LOCK_TIMEOUT = "privacy_master_lock_timeout";
+    private static final String PREFERENCE_MASTER_LOCK_SECURE = "privacy_master_lock_secure";
+
     private static final String PREFERENCE_AUTOFIT_WIDTH = "messageview_autofit_width";
     private static final String PREFERENCE_BACKGROUND_OPS = "background_ops";
     private static final String PREFERENCE_DEBUG_LOGGING = "debug_logging";
@@ -143,6 +149,11 @@ public class Prefs extends K9PreferenceActivity {
     private CheckBoxPreference mWrapFolderNames;
     private CheckBoxListPreference mVisibleRefileActions;
 
+    private CheckBoxPreference mUseMasterLock;
+    private MasterPasswordPreference mMasterPassword;
+    private ListPreference mMasterLockTimeout;
+    private CheckBoxPreference mMasterLockSecure;
+
     private CheckBoxPreference mQuietTimeEnabled;
     private CheckBoxPreference mDisableNotificationDuringQuietTime;
     private com.fsck.k9.preferences.TimePickerPreference mQuietTimeStarts;
@@ -162,8 +173,8 @@ public class Prefs extends K9PreferenceActivity {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreateUnlocked(Bundle savedInstanceState) {
+        super.onCreateUnlocked(savedInstanceState);
 
         addPreferencesFromResource(R.xml.global_preferences);
 
@@ -363,11 +374,19 @@ public class Prefs extends K9PreferenceActivity {
         mSensitiveLogging = (CheckBoxPreference)findPreference(PREFERENCE_SENSITIVE_LOGGING);
         mHideUserAgent = (CheckBoxPreference)findPreference(PREFERENCE_HIDE_USERAGENT);
         mHideTimeZone = (CheckBoxPreference)findPreference(PREFERENCE_HIDE_TIMEZONE);
+        mUseMasterLock = (CheckBoxPreference) findPreference(PREFERENCE_USE_MASTER_LOCK);
+        mMasterPassword = (MasterPasswordPreference) findPreference(PREFERENCE_MASTER_PASSWORD);
+        mMasterLockTimeout = (ListPreference) findPreference(PREFERENCE_MASTER_LOCK_TIMEOUT);
+        mMasterLockSecure = (CheckBoxPreference) findPreference(PREFERENCE_MASTER_LOCK_SECURE);
 
         mDebugLogging.setChecked(K9.DEBUG);
         mSensitiveLogging.setChecked(K9.DEBUG_SENSITIVE);
         mHideUserAgent.setChecked(K9.hideUserAgent());
         mHideTimeZone.setChecked(K9.hideTimeZone());
+        mUseMasterLock.setChecked(K9.useMasterLock());
+        mMasterPassword.setMasterPassword(K9.getMasterPassword());
+        mMasterLockTimeout.setValue(Long.toString(K9.getMasterLockTimeout()));
+        mMasterLockSecure.setChecked(K9.secureMasterLock());
 
         mAttachmentPathPreference = findPreference(PREFERENCE_ATTACHMENT_DEF_PATH);
         mAttachmentPathPreference.setSummary(K9.getAttachmentDefaultPath());
@@ -523,6 +542,10 @@ public class Prefs extends K9PreferenceActivity {
         K9.DEBUG_SENSITIVE = mSensitiveLogging.isChecked();
         K9.setHideUserAgent(mHideUserAgent.isChecked());
         K9.setHideTimeZone(mHideTimeZone.isChecked());
+        K9.setUseMasterLock(mUseMasterLock.isChecked());
+        K9.setMasterPassword(mMasterPassword.getMasterPassword());
+        K9.setMasterLockTimeout(Long.parseLong(mMasterLockTimeout.getValue()));
+        K9.setSecureMasterLock(mMasterLockSecure.isChecked());
 
         StorageEditor editor = storage.edit();
         K9.save(editor);

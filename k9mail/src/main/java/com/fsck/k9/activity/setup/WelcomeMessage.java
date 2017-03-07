@@ -25,8 +25,8 @@ public class WelcomeMessage extends K9Activity implements OnClickListener{
     }
 
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    public void onCreateUnlocked(Bundle icicle) {
+        super.onCreateUnlocked(icicle);
         setContentView(R.layout.welcome_message);
 
         TextView welcome = (TextView) findViewById(R.id.welcome_message);

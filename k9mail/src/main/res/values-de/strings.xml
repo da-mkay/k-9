@@ -275,6 +275,37 @@ Bitte senden Sie Fehlerberichte, Ideen für neue Funktionen und stellen Sie Frag
   <string name="global_settings_confirm_action_delete_notif">Löschen (aus Benachrichtigung)</string>
   <string name="global_settings_privacy_hide_useragent">K-9 nicht als Mailprogramm in Kopfzeilen eintragen</string>
   <string name="global_settings_privacy_hide_timezone">UTC als Zeitzone in Kopfzeilen verwenden</string>
+
+  <string name="master_lock_preferences">Master Sperre</string>
+  <string name="global_settings_privacy_use_master_lock">Verwende Master Sperre</string>
+  <string name="global_settings_privacy_master_password">Setze Master Passwort</string>
+  <string name="global_settings_privacy_master_lock_timeout">Automatische Sperre</string>
+  <string name="global_settings_privacy_master_lock_timeout_summary">Sperre App automatisch nach einiger Zeit Inaktivität</string>
+  <string name="global_settings_privacy_master_lock_secure">Sicherheitseinstellungen</string>
+  <string name="global_settings_privacy_master_lock_secure_summary">Verberge App-Inhalte in der Anzeige der zuletzt verwendeten Apps, deaktiviere Screenshots etc.</string>
+  <string name="global_settings_privacy_master_lock_timeout_entries_disabled">Nicht automatisch sperren</string>
+  <string name="global_settings_privacy_master_lock_timeout_entries_0">Sofort sperren</string>
+  <string name="global_settings_privacy_master_lock_timeout_entries_10">10 Sekunden</string>
+  <string name="global_settings_privacy_master_lock_timeout_entries_30">30 Sekunden</string>
+  <string name="global_settings_privacy_master_lock_timeout_entries_60">1 Minute</string>
+  <string name="global_settings_privacy_master_lock_timeout_entries_180">3 Minuten</string>
+  <string name="global_settings_privacy_master_lock_timeout_entries_300">5 Minuten</string>
+  <string name="global_settings_privacy_master_lock_timeout_entries_600">10 Minuten</string>
+  <string name="master_lock_password_old">Altes Passwort</string>
+  <string name="master_lock_password_new">Neues Passwort</string>
+  <string name="master_lock_password_repeat">Wiederhole neues Passwort</string>
+  <string name="master_lock_locked_hint">K-9 Mail ist gesperrt!</string>
+  <string name="master_lock_button_lock">Sperren</string>
+  <string name="master_lock_button_unlock">Entsperren</string>
+  <string name="master_lock_password_error_incorrect">Falsches Passwort!</string>
+  <string name="master_lock_password_error_empty">Dieses Feld darf nicht leer sein!</string>
+  <string name="master_lock_password_error_mismatch">Die neuen Passwörter stimmen nicht überein!</string>
+  <string name="master_lock_password_not_set_title">Master Sperre Passwort</string>
+  <string name="master_lock_password_not_set_text">K-9 Mail bietet eine Passwort-basierte Master Sperre, um unauthorisierten Zugriff zu verhinden.\nEs wird stark empfohlen ein Master Passwort in den globalen Datenschutz Einstellungen zu setzen, auch wenn die Master Sperre nicht verwendet werden soll. Wird kein Passwort gesetzt, so kann später eine Person mit Zugriff auf das Gerät ein Master Passwort setzen und dich für immer aussperren.</string>
+  <string name="master_lock_toast_locked">K-9 Mail wurde automatisch gesperrt!</string>
+  <string name="master_lock_notification_title">K-9 Mail ist entsperrt</string>
+  <string name="master_lock_notification_text">Berühren, um App zu öffnen</string>
+
   <string name="global_settings_notification_hide_subject_title">Betreff in Benachrichtigungen verbergen</string>
   <string name="global_settings_notification_hide_subject_never">Niemals</string>
   <string name="global_settings_notification_hide_subject_when_locked">Wenn der Bildschirm gesperrt ist</string>

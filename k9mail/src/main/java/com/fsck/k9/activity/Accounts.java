@@ -371,8 +371,8 @@ public class Accounts extends K9ListActivity implements OnItemClickListener {
     }
 
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    public void onCreateUnlocked(Bundle icicle) {
+        super.onCreateUnlocked(icicle);
 
         if (!K9.isHideSpecialAccounts()) {
             createSpecialAccounts();
@@ -432,9 +432,22 @@ public class Accounts extends K9ListActivity implements OnItemClickListener {
         }
 
         ChangeLog cl = new ChangeLog(this);
+        boolean firstRunEver = cl.isFirstRunEver();
         if (cl.isFirstRun()) {
             cl.getLogDialog().show();
         }
+        if (firstRunEver) {
+            showMasterLockDialog();
+        }
+    }
+
+    private void showMasterLockDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.master_lock_password_not_set_text)
+                .setTitle(R.string.master_lock_password_not_set_title)
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.ok, null);
+        builder.show();
     }
 
     private void initializeActionBar() {

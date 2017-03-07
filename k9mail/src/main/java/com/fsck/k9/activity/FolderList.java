@@ -250,8 +250,8 @@ public class FolderList extends K9ListActivity {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreateUnlocked(Bundle savedInstanceState) {
+        super.onCreateUnlocked(savedInstanceState);
 
         if (UpgradeDatabases.actionUpgradeDatabases(this, getIntent())) {
             finish();

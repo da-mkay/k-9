@@ -34,8 +34,8 @@ public class UnreadWidgetConfiguration extends AccountList {
 
 
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    public void onCreateUnlocked(Bundle icicle) {
+        super.onCreateUnlocked(icicle);
 
         // Find the widget ID from the intent.
         Intent intent = getIntent();
