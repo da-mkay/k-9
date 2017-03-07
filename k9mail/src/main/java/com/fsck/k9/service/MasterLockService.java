@@ -1,15 +1,17 @@
 package com.fsck.k9.service;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
-import android.os.Handler;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.fsck.k9.K9;
@@ -49,21 +51,17 @@ public class MasterLockService extends Service {
      */
     private static final int NOTIFICATION_ID_MASTER_LOCK = Integer.MAX_VALUE;
 
-    private static final String ACTION_LOCK = "com.fsck.k9.service.MasterLockService.ACTION_LOCK";
+    private static final String ACTION_LOCK = "MasterLockService.lock";
+
+    private static final String ACTION_AUTOLOCK = "MasterLockService.autolock";
 
     private static boolean mLocked = true;
 
     private final IBinder mBinder = new MasterLockBinder();
     private LocalBroadcastManager mLocalBroadcastManager;
 
-    private Handler mHandler;
-    private Runnable mStopRunnable = new Runnable() {
-        @Override
-        public void run() {
-            lock();
-            Toast.makeText(MasterLockService.this, R.string.master_lock_toast_locked, Toast.LENGTH_SHORT).show();
-        }
-    };
+    private AlarmManager mAlarmManager;
+    private PendingIntent mLockAlarmIntent;
 
     private void lock() {
         mLocked = true;
@@ -89,14 +87,20 @@ public class MasterLockService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        mHandler = new Handler();
+
         mLocalBroadcastManager = LocalBroadcastManager.getInstance(this);
+
+        mAlarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        // Set up intent that is used in onUnbind() to auto-lock app after some time of inactivity
+        Intent lockAlarmIntent = new Intent(this, AlarmReceiver.class);
+        lockAlarmIntent.setAction(ACTION_AUTOLOCK);
+        mLockAlarmIntent = PendingIntent.getBroadcast(this, 0, lockAlarmIntent, 0);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mHandler.removeCallbacks(mStopRunnable);
+        mAlarmManager.cancel(mLockAlarmIntent);
     }
 
     @Override
@@ -107,8 +111,8 @@ public class MasterLockService extends Service {
     @Override
     public void onRebind(Intent intent) {
         super.onRebind(intent);
-        // Remove a potentially pending stop-runnable that was added in onUnbind()
-        mHandler.removeCallbacks(mStopRunnable);
+        // Remove a potentially pending auto-lock that was added in onUnbind()
+        mAlarmManager.cancel(mLockAlarmIntent);
     }
 
     @Override
@@ -116,7 +120,8 @@ public class MasterLockService extends Service {
         // All unbound --> lock in X seconds if unlocked
         long timeout = K9.getMasterLockTimeout();
         if (!mLocked && timeout >= 0) {
-            mHandler.postDelayed(mStopRunnable, timeout);
+            long millis = SystemClock.elapsedRealtime() + timeout;
+            mAlarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, millis, mLockAlarmIntent);
         }
         return true; // We want onRebind to be called when a new activity binds to us
     }
@@ -124,7 +129,12 @@ public class MasterLockService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (ACTION_LOCK.equals(intent.getAction())) {
-            Log.d(MasterLockService.class.getSimpleName(), "LOCK");
+            // Locked from button in notification
+            lock();
+            return Service.START_NOT_STICKY;
+        } else if (ACTION_AUTOLOCK.equals(intent.getAction())) {
+            // Auto-locked after inactivity
+            Toast.makeText(this, R.string.master_lock_toast_locked, Toast.LENGTH_SHORT).show();
             lock();
             return Service.START_NOT_STICKY;
         }
@@ -156,6 +166,17 @@ public class MasterLockService extends Service {
         public MasterLockService getService() {
             // Return this instance of MasterLockService so clients can call public methods
             return MasterLockService.this;
+        }
+    }
+
+    public static class AlarmReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, final Intent intent) {
+            if (ACTION_AUTOLOCK.equals(intent.getAction())) {
+                Intent lockIntent = new Intent(context, MasterLockService.class);
+                lockIntent.setAction(ACTION_AUTOLOCK);
+                context.startService(lockIntent);
+            }
         }
     }
 }

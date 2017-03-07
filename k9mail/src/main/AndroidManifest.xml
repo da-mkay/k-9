@@ -359,6 +359,10 @@
                 android:resource="@xml/unread_widget_info"/>
         </receiver>
 
+        <receiver
+            android:name=".service.MasterLockService$AlarmReceiver"
+            android:exported="false" />
+
         <service
             android:name=".service.MailService"
             android:enabled="true"/>
