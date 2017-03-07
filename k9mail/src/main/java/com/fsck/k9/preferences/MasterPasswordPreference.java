@@ -44,7 +44,7 @@ public class MasterPasswordPreference extends DialogPreference {
         mPwdEditNew = (EditText) view.findViewById(R.id.master_password_preference_new);
         mPwdEditNewRpt = (EditText) view.findViewById(R.id.master_password_preference_repeat);
         if (mCurPasswordHash == null) {
-            mPwdEditOld.setVisibility(View.INVISIBLE);
+            mPwdEditOld.setVisibility(View.GONE);
         }
     }
 
