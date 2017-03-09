@@ -7,8 +7,8 @@
     tools:context="com.fsck.k9.activity.masterlock.UnlockActivity"
     android:orientation="vertical"
     android:paddingTop="70dip"
-    android:paddingRight="12dip"
-    android:paddingLeft="12dip">
+    android:paddingRight="40dip"
+    android:paddingLeft="40dip">
 
     <ImageView
         android:src="@drawable/icon"
