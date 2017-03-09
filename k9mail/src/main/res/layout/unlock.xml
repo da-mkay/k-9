@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/unlock"
     android:layout_width="match_parent"
@@ -14,7 +14,7 @@
         android:src="@drawable/icon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
+        android:id="@+id/image_k9_logo"
         android:contentDescription="@string/app_name" />
 
     <TextView
@@ -22,21 +22,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/unlock_text"
+        android:layout_below="@id/image_k9_logo"
         android:layout_marginTop="12dip"
         android:layout_marginBottom="12dip"
         android:gravity="center" />
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/unlock_text"
+        android:layout_toLeftOf="@+id/unlock_button"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/unlock_edit" />
 
-    <Button
-        android:text="@string/master_lock_button_unlock"
-        android:layout_width="match_parent"
+    <ImageButton
+        android:src="?attr/iconActionNextMessage"
+        android:background="@null"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/unlock_text"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/unlock_button"
-        android:onClick="onUnlockButtonClick" />
-</LinearLayout>
+        android:id="@id/unlock_button"
+        android:onClick="onUnlockButtonClick"
+        android:contentDescription="@string/master_lock_button_unlock" />
+</RelativeLayout>
