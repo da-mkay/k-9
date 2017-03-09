@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
 
 import com.fsck.k9.K9;
@@ -166,15 +165,11 @@ class LockedActivityCommon {
     }
 
     protected void onResume() {
-        //mActivity.getWindow().getDecorView().getRootView().setVisibility(View.VISIBLE);
-        mActivity.findViewById(android.R.id.content).setVisibility(View.VISIBLE);
         mLocalBroadcastManager.registerReceiver(mBroadcastReceiver, mIntentFilter);
     }
 
     protected void onPause() {
         mLocalBroadcastManager.unregisterReceiver(mBroadcastReceiver);
-        //mActivity.getWindow().getDecorView().getRootView().setVisibility(GONE);
-        mActivity.findViewById(android.R.id.content).setVisibility(View.GONE);
     }
 
     protected void onStop() {
