@@ -554,6 +554,8 @@ public class Prefs extends K9PreferenceActivity {
         if (needsRefresh) {
             MailService.actionReset(this, null);
         }
+
+        onMasterLockSettingsChanged();
     }
 
     @Override

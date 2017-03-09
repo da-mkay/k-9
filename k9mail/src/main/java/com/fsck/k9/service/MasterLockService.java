@@ -63,16 +63,19 @@ public class MasterLockService extends Service {
     private AlarmManager mAlarmManager;
     private PendingIntent mLockAlarmIntent;
 
-    private void lock() {
+    private void stopLockService() {
         mLocked = true;
+        stopForeground(true);
+        stopSelf();
+    }
+
+    private void lock() {
+        stopLockService();
 
         // Inform activity about lock state
         Intent intent = new Intent();
         intent.setAction(ACTION_LOCKED);
         mLocalBroadcastManager.sendBroadcast(intent);
-
-        stopForeground(true);
-        stopSelf();
     }
 
     public static boolean isLocked() {
@@ -161,6 +164,17 @@ public class MasterLockService extends Service {
         startForeground(NOTIFICATION_ID_MASTER_LOCK, notification);
 
         return Service.START_NOT_STICKY;
+    }
+
+    /**
+     * Called when settings were saved.
+     */
+    public void onSettingsChanged() {
+        if (!mLocked && !K9.useMasterLock()) {
+            // App is unlocked, meaning that service is in foreground.
+            // But lock is disabled now --> stop
+            stopLockService();
+        }
     }
 
     public class MasterLockBinder extends Binder {

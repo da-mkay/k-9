@@ -56,4 +56,8 @@ public abstract class LockedPreferenceActivity extends PreferenceActivity implem
         super.onDestroy();
         mCommon.onDestroy();
     }
+
+    protected void onMasterLockSettingsChanged() {
+        getLockedActivityCommon().getMasterLockService().onSettingsChanged();
+    }
 }
