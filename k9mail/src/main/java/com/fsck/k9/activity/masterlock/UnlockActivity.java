@@ -2,14 +2,20 @@ package com.fsck.k9.activity.masterlock;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.fsck.k9.K9;
 import com.fsck.k9.R;
 import com.fsck.k9.activity.K9Activity;
 import com.fsck.k9.preferences.PasswordHash;
 import com.fsck.k9.service.MasterLockService;
+
+import static android.view.inputmethod.EditorInfo.IME_ACTION_GO;
+import static android.view.inputmethod.EditorInfo.IME_NULL;
 
 public class UnlockActivity extends K9Activity {
     public static final String EXTRA_ORIGINAL_INTENT = "com.fsck.k9.activity.masterlock.EXTRA_ORIGINAL_INTENT";
@@ -32,6 +38,16 @@ public class UnlockActivity extends K9Activity {
         getActionBar().hide();
         setContentView(R.layout.unlock);
         mPasswordEdit = (EditText) findViewById(R.id.unlock_edit);
+        mPasswordEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == IME_ACTION_GO || actionId == IME_NULL) {
+                    onUnlockButtonClick(null);
+                    return true;
+                }
+                return false;
+            }
+        });
 
         mCalledForResult = getCallingActivity() != null;
         mOriginalIntent = getIntent().getParcelableExtra(EXTRA_ORIGINAL_INTENT);
@@ -51,7 +67,9 @@ public class UnlockActivity extends K9Activity {
         super.onStartUnlocked();
         if (!MasterLockService.isLocked()) {
             goToOriginal();
+            return;
         }
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
     public void onUnlockButtonClick(View view) {
