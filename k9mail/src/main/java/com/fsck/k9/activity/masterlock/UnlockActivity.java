@@ -56,7 +56,10 @@ public class UnlockActivity extends K9Activity {
 
     public void onUnlockButtonClick(View view) {
         String enteredPassword = mPasswordEdit.getText().toString();
-        if (!PasswordHash.validatePassword(K9.getMasterPassword(), enteredPassword)) {
+        if (enteredPassword.isEmpty()) {
+            mPasswordEdit.setError(getText(R.string.master_lock_password_error_empty));
+            return;
+        } else if (!PasswordHash.validatePassword(K9.getMasterPassword(), enteredPassword)) {
             mPasswordEdit.setError(getText(R.string.master_lock_password_error_incorrect));
             return;
         }
