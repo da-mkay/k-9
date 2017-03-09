@@ -101,6 +101,7 @@ public class MasterLockService extends Service {
     public void onDestroy() {
         super.onDestroy();
         mAlarmManager.cancel(mLockAlarmIntent);
+        mLocked = true;
     }
 
     @Override
