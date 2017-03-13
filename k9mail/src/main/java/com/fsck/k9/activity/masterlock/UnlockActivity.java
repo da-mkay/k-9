@@ -25,6 +25,7 @@ public class UnlockActivity extends K9Activity {
     private Intent mOriginalIntent;
     private String mOriginalClass;
     private boolean mCalledForResult;
+    private boolean mWentToOriginal;
 
     public UnlockActivity() {
         super();
@@ -93,6 +94,10 @@ public class UnlockActivity extends K9Activity {
     }
 
     private void goToOriginal() {
+        if (mWentToOriginal) {
+            return;
+        }
+        mWentToOriginal = true;
         if (mOriginalIntent != null) {
             if (mCalledForResult) {
                 mOriginalIntent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
