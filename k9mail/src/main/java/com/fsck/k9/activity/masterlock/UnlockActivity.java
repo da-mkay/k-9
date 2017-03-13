@@ -72,6 +72,13 @@ public class UnlockActivity extends K9Activity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
+    @Override
+    public void onPauseUnlocked() {
+        super.onPauseUnlocked();
+        // No back animation:
+        overridePendingTransition(0, 0);
+    }
+
     public void onUnlockButtonClick(View view) {
         String enteredPassword = mPasswordEdit.getText().toString();
         if (enteredPassword.isEmpty()) {
