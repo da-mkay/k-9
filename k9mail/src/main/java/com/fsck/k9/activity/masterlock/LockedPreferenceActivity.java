@@ -3,6 +3,8 @@ package com.fsck.k9.activity.masterlock;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
+import com.fsck.k9.service.MasterLockService;
+
 /**
  * See {@link LockedActivityCommon}.
  * <p>
@@ -58,6 +60,9 @@ public abstract class LockedPreferenceActivity extends PreferenceActivity implem
     }
 
     protected void onMasterLockSettingsChanged() {
-        getLockedActivityCommon().getMasterLockService().onSettingsChanged();
+        MasterLockService lock = getLockedActivityCommon().getMasterLockService();
+        if (lock != null) {
+            lock.onSettingsChanged();
+        }
     }
 }
