@@ -149,8 +149,8 @@ public class UpgradeDatabases extends K9Activity {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onResumeUnlocked() {
+        super.onResumeUnlocked();
 
         // Check if the upgrade was completed while the activity was paused.
         if (K9.areDatabasesUpToDate()) {
@@ -167,12 +167,12 @@ public class UpgradeDatabases extends K9Activity {
     }
 
     @Override
-    public void onPause() {
+    public void onPauseUnlocked() {
         // The activity is being paused, so there's no point in listening to the progress of the
         // database upgrade service.
         mLocalBroadcastManager.unregisterReceiver(mBroadcastReceiver);
 
-        super.onPause();
+        super.onPauseUnlocked();
     }
 
     /**

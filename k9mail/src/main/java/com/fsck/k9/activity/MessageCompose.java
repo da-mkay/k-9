@@ -632,14 +632,14 @@ public class MessageCompose extends K9Activity implements OnClickListener,
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    public void onResumeUnlocked() {
+        super.onResumeUnlocked();
         MessagingController.getInstance(this).addListener(messagingListener);
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onPauseUnlocked() {
+        super.onPauseUnlocked();
         MessagingController.getInstance(this).removeListener(messagingListener);
 
         boolean isPausingOnConfigurationChange = (getChangingConfigurations() & ActivityInfo.CONFIG_ORIENTATION)

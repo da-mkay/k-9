@@ -559,9 +559,9 @@ public class Prefs extends K9PreferenceActivity {
     }
 
     @Override
-    protected void onPause() {
+    public void onPauseUnlocked() {
         saveSettings();
-        super.onPause();
+        super.onPauseUnlocked();
     }
 
     private void onFontSizeSettings() {

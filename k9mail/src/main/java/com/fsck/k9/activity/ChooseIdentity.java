@@ -46,8 +46,8 @@ public class ChooseIdentity extends K9ListActivity {
 
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onResumeUnlocked() {
+        super.onResumeUnlocked();
         refreshView();
     }
 

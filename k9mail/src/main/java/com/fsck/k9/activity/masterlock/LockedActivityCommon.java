@@ -190,10 +190,22 @@ class LockedActivityCommon {
 
     protected void onResume() {
         mLocalBroadcastManager.registerReceiver(mBroadcastReceiver, mIntentFilter);
+
+        // Redirect?
+        if (!mLockEnabled || requireUnlocked()) {
+            mPassedResume = true;
+            mLockFiltered.onResumeUnlocked();
+        }
     }
 
     protected void onPause() {
         mLocalBroadcastManager.unregisterReceiver(mBroadcastReceiver);
+        // Call onPauseUnlocked() if onResumeUnlocked() was called before.
+        if (mPassedResume) {
+            mPassedResume = false;
+            mLockFiltered.onPauseUnlocked();
+        }
+        mUnlockActivityStarted = false;
     }
 
     protected void onStop() {
@@ -252,6 +264,10 @@ class LockedActivityCommon {
         void onCreateUnlocked(Bundle savedInstanceState);
 
         void onStartUnlocked();
+
+        void onResumeUnlocked();
+
+        void onPauseUnlocked();
 
         void onStopUnlocked();
 

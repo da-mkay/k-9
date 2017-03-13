@@ -114,8 +114,8 @@ public class ManageIdentities extends ChooseIdentity {
 
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onResumeUnlocked() {
+        super.onResumeUnlocked();
         //mAccount.refresh(Preferences.getPreferences(getApplication().getApplicationContext()));
         refreshView();
     }

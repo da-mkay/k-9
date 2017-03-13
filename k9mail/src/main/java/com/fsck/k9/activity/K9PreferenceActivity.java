@@ -26,6 +26,14 @@ public class K9PreferenceActivity extends LockedPreferenceActivity {
     }
 
     @Override
+    public void onResumeUnlocked() {
+    }
+
+    @Override
+    public void onPauseUnlocked() {
+    }
+
+    @Override
     public void onStopUnlocked() {
     }
 

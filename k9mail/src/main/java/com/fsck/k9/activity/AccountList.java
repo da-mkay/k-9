@@ -50,8 +50,8 @@ public abstract class AccountList extends K9ListActivity implements OnItemClickL
      * Reload list of accounts when this activity is resumed.
      */
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onResumeUnlocked() {
+        super.onResumeUnlocked();
         new LoadAccounts().execute();
     }
 

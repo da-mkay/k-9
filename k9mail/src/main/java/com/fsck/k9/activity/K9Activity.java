@@ -29,6 +29,14 @@ public class K9Activity extends LockedActivity implements K9ActivityMagic {
     }
 
     @Override
+    public void onResumeUnlocked() {
+    }
+
+    @Override
+    public void onPauseUnlocked() {
+    }
+
+    @Override
     public void onStopUnlocked() {
     }
 

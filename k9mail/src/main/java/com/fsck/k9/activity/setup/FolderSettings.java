@@ -163,13 +163,13 @@ public class FolderSettings extends K9PreferenceActivity {
     }
 
     @Override
-    public void onPause() {
+    public void onPauseUnlocked() {
         try {
             saveSettings();
         } catch (MessagingException e) {
             Log.e(K9.LOG_TAG, "Saving folder settings failed", e);
         }
 
-        super.onPause();
+        super.onPauseUnlocked();
     }
 }

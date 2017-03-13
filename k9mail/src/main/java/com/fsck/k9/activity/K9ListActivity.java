@@ -32,6 +32,14 @@ public class K9ListActivity extends LockedListActivity implements K9ActivityMagi
     }
 
     @Override
+    public void onResumeUnlocked() {
+    }
+
+    @Override
+    public void onPauseUnlocked() {
+    }
+
+    @Override
     public void onStopUnlocked() {
     }
 

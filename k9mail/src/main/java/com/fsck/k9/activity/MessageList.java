@@ -495,15 +495,15 @@ public class MessageList extends K9Activity implements MessageListFragmentListen
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onPauseUnlocked() {
+        super.onPauseUnlocked();
 
         StorageManager.getInstance(getApplication()).removeListener(mStorageListener);
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onResumeUnlocked() {
+        super.onResumeUnlocked();
 
         if (!(this instanceof Search)) {
             //necessary b/c no guarantee Search.onStop will be called before MessageList.onResume

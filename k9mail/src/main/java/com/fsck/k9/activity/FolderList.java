@@ -363,8 +363,8 @@ public class FolderList extends K9ListActivity {
         return (mAdapter == null) ? null : mAdapter.mFolders;
     }
 
-    @Override public void onPause() {
-        super.onPause();
+    @Override public void onPauseUnlocked() {
+        super.onPauseUnlocked();
         MessagingController.getInstance(getApplication()).removeListener(mAdapter.mListener);
         mAdapter.mListener.onPause(this);
     }
@@ -374,8 +374,8 @@ public class FolderList extends K9ListActivity {
     * messages for any folder that is currently open. This guarantees that things
     * like unread message count and read status are updated.
      */
-    @Override public void onResume() {
-        super.onResume();
+    @Override public void onResumeUnlocked() {
+        super.onResumeUnlocked();
 
         if (!mAccount.isAvailable(this)) {
             Log.i(K9.LOG_TAG, "account unavaliabale, not showing folder-list but account-list");
