@@ -310,6 +310,7 @@
         <receiver
             android:name=".service.RemoteControlReceiver"
             android:enabled="true"
+            android:exported="false"
             android:permission="${applicationId}.permission.REMOTE_CONTROL">
             <intent-filter>
                 <action android:name="${applicationId}.K9RemoteControl.set"/>
@@ -382,6 +383,7 @@
         <service
             android:name=".service.RemoteControlService"
             android:enabled="true"
+            android:exported="false"
             android:permission="${applicationId}.permission.REMOTE_CONTROL"/>
 
         <service
@@ -400,7 +402,7 @@
         <provider
             android:name=".provider.AttachmentProvider"
             android:authorities="${applicationId}.attachmentprovider"
-            android:exported="true"
+            android:exported="false"
             android:grantUriPermissions="true"
             android:multiprocess="true"
             android:readPermission="${applicationId}.permission.READ_ATTACHMENT">
@@ -414,7 +416,7 @@
         <provider
             android:name=".provider.MessageProvider"
             android:authorities="${applicationId}.messageprovider"
-            android:exported="true"
+            android:exported="false"
             android:grantUriPermissions="true"
             android:multiprocess="true"
             android:readPermission="${applicationId}.permission.READ_MESSAGES"
