@@ -10,12 +10,24 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.WindowManager;
 
 import com.fsck.k9.K9;
 import com.fsck.k9.service.MasterLockService;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET;
+import static android.content.Intent.FLAG_ACTIVITY_FORWARD_RESULT;
+import static android.content.Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT;
+import static android.content.Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_DOCUMENT;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_NO_ANIMATION;
+import static android.content.Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP;
+import static android.content.Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED;
+import static android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP;
+import static android.content.Intent.FLAG_ACTIVITY_TASK_ON_HOME;
 import static com.fsck.k9.activity.masterlock.UnlockActivity.EXTRA_ORIGINAL_CLASS;
 import static com.fsck.k9.activity.masterlock.UnlockActivity.EXTRA_ORIGINAL_INTENT;
 
@@ -34,6 +46,16 @@ import static com.fsck.k9.activity.masterlock.UnlockActivity.EXTRA_ORIGINAL_INTE
  */
 
 class LockedActivityCommon {
+
+    /**
+     * The flags of an Intent that are kept when redirecting and resending original intent. For
+     * example FLAG_ACTIVITY_NEW_TASK and FLAG_ACTIVITY_CLEAR_TASK will be cleared.
+     */
+    private final static int KEEP_FLAGS = ~(FLAG_ACTIVITY_CLEAR_TASK | FLAG_ACTIVITY_CLEAR_TOP |
+            FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET | FLAG_ACTIVITY_LAUNCH_ADJACENT |
+            FLAG_ACTIVITY_MULTIPLE_TASK | FLAG_ACTIVITY_NEW_DOCUMENT |
+            FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_PREVIOUS_IS_TOP | FLAG_ACTIVITY_RESET_TASK_IF_NEEDED |
+            FLAG_ACTIVITY_TASK_ON_HOME | FLAG_ACTIVITY_SINGLE_TOP);
 
     private Activity mActivity;
     private LockFiltered mLockFiltered;
@@ -101,12 +123,14 @@ class LockedActivityCommon {
             if (!mUnlockActivityStarted) {
                 mUnlockActivityStarted = true;
                 boolean calledForResult = mActivity.getCallingActivity() != null;
+                int baseIntentFlags = mActivity.getIntent().getFlags() & KEEP_FLAGS;
 
                 Intent unlockIntent = new Intent(mActivity.getIntent()); // copy intent to ensure target has all permissions
+                unlockIntent.setFlags(baseIntentFlags);
                 unlockIntent.setClass(mActivity, UnlockActivity.class); // make explicit
-                unlockIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                unlockIntent.addFlags(FLAG_ACTIVITY_NO_ANIMATION);
                 if (calledForResult) {
-                    unlockIntent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+                    unlockIntent.addFlags(FLAG_ACTIVITY_FORWARD_RESULT);
                 }
 
                 if (!mPassedCreate) {
@@ -114,6 +138,7 @@ class LockedActivityCommon {
                     // initialized completely. So we tell UnlockActivity to resend the original
                     // intent.
                     Intent originalIntent = new Intent(mActivity.getIntent());
+                    originalIntent.setFlags(baseIntentFlags);
                     unlockIntent.putExtra(EXTRA_ORIGINAL_INTENT, originalIntent);
                     unlockIntent.putExtra(EXTRA_ORIGINAL_CLASS, mActivity.getClass().getName());
                     if (!calledForResult) {
@@ -149,7 +174,6 @@ class LockedActivityCommon {
             mPassedCreate = true;
             mLockFiltered.onCreateUnlocked(savedInstanceState);
         }
-        Log.d(LockedActivityCommon.class.getSimpleName(), "LOCK " + mActivity.getClass().getName());
     }
 
     protected void onStart() {
